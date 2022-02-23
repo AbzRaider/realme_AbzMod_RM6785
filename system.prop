@@ -64,7 +64,7 @@ media.stagefright.enable-rtsp=true
 media.stagefright.enable-record=false
 
 #RealmeDeafaultDPI(for better touch)
-ro.sf.lcd_density=480
+ro.sf.lcd_density=409
 
 debug.mediatek.high_frame_rate_multiple_display_mode=0
 debug.sf.disable_backpressure=0
