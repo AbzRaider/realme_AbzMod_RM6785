@@ -4,29 +4,29 @@
 # build prop start
 
 # ro.build.product is obsolete; use 
-ro.oppo.market.name=Asus ROG Phone 5
-ro.product.brand=asus
-ro.product.device=IN2023
-ro.product.manufacturer=asus
-ro.product.name=ROG Phone 5
-ro.product.model=ZS673KS
-ro.build.product=ZS673KS
-o.vendor.product.oem=ZS673KS
-ro.product.device=ZS673KS
-ro.vendor.product.device.oem=ZS673KS
-o.product.system.brand=asus
-ro.product.system.device=ZS673KS
+ro.oppo.market.name=realme GT
+ro.product.brand=realme
+ro.product.device=RMX2202
+ro.product.manufacturer=realme
+ro.product.name=Realme GT
+ro.product.model=RMX2202
+ro.build.product=IN2023
+ro.vendor.product.oem=RMX2022
+ro.product.device=Realme GT
+ro.vendor.product.device.oem=RMX2202
+ro.product.system.brand=realme
+ro.product.system.device=IN2023
 ro.product.system.manufacturer=realme
-ro.product.system.model=ZS673KS
-ro.product.system.name=Asus ROG Phone 5
+ro.product.system.model=RMX2202
+ro.product.system.name=IN2023
 ro.product.bootimage.brand=realme
-ro.product.bootimage.device=ZS673KS
-ro.product.bootimage.manufacturer=asus
-ro.product.bootimage.model=ZS673KS
-ro.product.bootimage.name=ZS673KS
-ro.product.vendor.brand=asus
+ro.product.bootimage.device=IN2023
+ro.product.bootimage.manufacturer=realme
+ro.product.bootimage.model=IN2023
+ro.product.bootimage.name=IN2023
+ro.product.vendor.brand=realme
 ro.product.vendor.device=IN2023
-ro.product.vendor.manufacturer=asus
+ro.product.vendor.manufacturer=realme
 ro.product.vendor.model=IN2023
 ro.product.vendor.name=IN2023
 ro.product.odm.brand=realme
@@ -54,11 +54,17 @@ ro.media.enc.aud.mp3.enabled=1
 ro.media.enc.vid.mp4.enabled=1
 
 
+
+# Faster streaming videos
+media.stagefright.enable-player=true
+media.stagefright.enable-meta=true
+media.stagefright.enable-scan=true
+media.stagefright.enable-http=true
+media.stagefright.enable-rtsp=true
+media.stagefright.enable-record=false
+
 #RealmeDeafaultDPI(for better touch)
 ro.sf.lcd_density=480
 
-
-
-#SurfaceflingerTweaks
-ro.surface_flinger.max_frame_buffer_acquired_buffers=2
-ro.surface_flinger.min_frame_buffer_acquired_buffers=1
+debug.mediatek.high_frame_rate_multiple_display_mode=0
+debug.sf.disable_backpressure=0

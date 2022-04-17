@@ -1,38 +1,32 @@
 # This script will be executed in late_start service mode
 # More info in the main Magisk thread
 setenforce 0
-stop thermal
 stop thermald
 
-setprop ro.product.device ZS673KS
-setprop ro.product.manufacturer asus
-setprop ro.product.name ROG Phone 5
-setprop ro.product.model ZS673KS
-setprop ro.build.product ZS673KS
 
 #set GED to defaults
 echo 0 >/sys/module/ged/parameters/gx_game_mode
-	echo  1>/sys/module/ged/parameters/gx_force_cpu_boost
-	echo 1 > /sys/module/ged/parameters/boost_amp
-	echo 1 > /sys/module/ged/parameters/boost_extra
+	echo 0 >/sys/module/ged/parameters/gx_force_cpu_boost
+	echo 0 > /sys/module/ged/parameters/boost_amp
+	echo 0 > /sys/module/ged/parameters/boost_extra
 	echo 0 > /sys/module/ged/parameters/boost_gpu_enable
 	echo 0 > /sys/module/ged/parameters/enable_cpu_boost
 	echo 0 > /sys/module/ged/parameters/enable_gpu_boost
 	echo 0 > /sys/module/ged/parameters/enable_game_self_frc_detect
 	echo 20 > /sys/module/ged/parameters/gpu_idle
 	echo 0 > /sys/module/ged/parameters/cpu_boost_policy
-	echo 1 > /sys/module/ged/parameters/ged_force_mdp_enable
-	echo 1 > /sys/module/ged/parameters/ged_boost_enable
-	echo 100 > /sys/module/ged/parameters/ged_smart_boost
+	echo 0 > /sys/module/ged/parameters/ged_force_mdp_enable
+	echo 0 > /sys/module/ged/parameters/ged_boost_enable
+	echo 0 > /sys/module/ged/parameters/ged_smart_boost
 	echo 0 > /sys/module/ged/parameters/gx_frc_mode
-	echo 1 > /sys/module/ged/parameters/gx_boost_on
+	echo 0 > /sys/module/ged/parameters/gx_boost_on
 
 
 # Update to Boosted GED Module Values
 echo 1 >/sys/module/ged/parameters/gx_game_mode
 echo 1 > /sys/module/ged/parameters/enable_cpu_boost
 echo 1> /sys/module/ged/parameters/enable_gpu_boost
-echo 1 > /sys/module/ged/parameters/boost_gpu_enable
+echo 0 > /sys/module/ged/parameters/boost_gpu_enable
 echo 900000 > /sys/module/ged/parameters/gpu_cust_boost_freq
 echo 20 > /sys/module/ged/parameters/gpu_idle
 echo 1 > /sys/module/ged/parameters/enable_game_self_frc_detect
@@ -45,12 +39,17 @@ echo 1 > /sys/module/ged/parameters/gpu_dvfs_enable
 # lock GPU frequency to highest for best gaming experience
 	echo Lock GPU to 900MHz
 	echo echo 900000,480000>  /proc/gpufreq/gpufreq_opp_freq
-        echo set Min Freq to 700mhz
-       echo "480000" > /sys/module/ged/parameters/gpu_bottom_freq
+        echo set Min Freq to 480mhz
+       echo 480000 > /sys/module/ged/parameters/gpu_bottom_freq
 	echo Done
 	echo
 
+#EnableFastCharge
+echo "1" >/proc/fastchg_fw_update
+
 echo GED Modules enabled
+echo
+
 # change CPU mode
 echo "1" > /proc/sys/slide_boost_enabled
 echo 1 > /proc/cpufreq/cpufreq_cci_mode
@@ -65,16 +64,22 @@ echo 7 > /proc/cpufreq/MT_CPU_DVFS_CCI/cpufreq_turbo_mode
 echo switch 0 > /proc/driver/thermal/tztsAll_enable
 echo "turbo_mode 1,0,0" > /proc/cpufreq/MT_CPU_DVFS_CCI/cpufreq_turbo_mode
 echo "16" > /proc/sys/kernel/perf_cpu_time_max_percent
+echo enable perfserv boost
+echo "1">/proc/perfmgr/boost_ctrl/eas_ctrl/perfserv_ta_boost
+echo "1">/proc/sys/kernel/launcher_boost_enabled
+
+
 # PPM
-echo 1 > /proc/ppm/enabled
-	echo 0 1> /proc/ppm/policy_status
+echo "1"> /proc/ppm/enabled
+        echo  "1"> /proc/ppm/profile/profile_on
+	echo 0 0> /proc/ppm/policy_status
 	echo 1 1> /proc/ppm/policy_status
 	echo 2 0> /proc/ppm/policy_status
 	echo 3 0> /proc/ppm/policy_status
 	echo 4 0> /proc/ppm/policy_status
 	echo 5 0> /proc/ppm/policy_status
-	echo 6 1> /proc/ppm/policy_status
-	echo 7 1> /proc/ppm/policy_status
+	echo 6 0> /proc/ppm/policy_status
+	echo 7 0> /proc/ppm/policy_status
 	echo 8 0> /proc/ppm/policy_status
 	echo 9 1> /proc/ppm/policy_status
 
@@ -86,15 +91,16 @@ echo 1 > /proc/ppm/enabled
 	
 
 #RAM Optimizations
-echo "100" > /proc/sys/vm/vfs_cache_pressure
+echo "60" > /proc/sys/vm/vfs_cache_pressure
 echo "10" > /proc/sys/vm/stat_interval
-echo "8" > /proc/sys/vm/dirty_ratio
+echo "9" > /proc/sys/vm/dirty_ratio
 echo "3" > /proc/sys/vm/dirty_background_ratio
-echo "80" > /proc/sys/vm/direct_swapiness
+echo "160" > /proc/sys/vm/direct_swapiness
+echo "110" > /proc/sys/vm/swapiness
 
 #KernelTweaks
-echo "31"> /proc/sys/kernel/boost_task_threshold
-echo "59"> /proc/sys/kernel/frame_rate
+echo "40"> /proc/sys/kernel/boost_task_threshold
+echo "60"> /proc/sys/kernel/frame_rate
 
 
 # Fix Touch Screen
@@ -169,6 +175,7 @@ echo "0" > /proc/sys/kernel/timer_migration
 
 
 
+
 	
 
 
@@ -177,7 +184,7 @@ echo "0" > /proc/sys/kernel/timer_migration
 
 
 echo 0-7> /dev/cpuset/foreground/cpus
-echo 2-5> /dev/cpuset/background/cpus
+echo 2-4> /dev/cpuset/background/cpus
 echo 0-3> /dev/cpuset/system-background/cpus
 echo 0-7> /dev/cpuset/top-app/cpus
 echo 0-4> /dev/cpuset/restricted/cpus
